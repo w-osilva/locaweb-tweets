@@ -1,0 +1,12 @@
+default: &default
+  url: "http://tweeps.locaweb.com.br/tweeps/"
+  username: <%= ENV.fetch("HTTP_USERNAME") %>
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default
