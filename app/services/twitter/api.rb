@@ -10,7 +10,7 @@ module Twitter
     def initialize(url: nil, username: nil)
       @url = url
       @username = username
-      @header = { 'Username' => username }
+      @header = { 'Username' => username, 'Content-Type' => 'application/json' }
     end
 
     def get
