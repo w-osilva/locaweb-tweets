@@ -34,6 +34,8 @@ group :test do
   gem 'capybara', '~> 3.8'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 3.1'
+  gem 'webmock', '~> 3.6.0'
+  gem 'vcr', '~> 5.0.0'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
