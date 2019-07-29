@@ -1,0 +1,41 @@
+<% cache tweet do %>
+
+  <div class="card" style="margin-bottom: 20px">
+    <header class="card-header">
+      <p class="card-header-title">
+        <%= link_to tweet['screen_name'], tweet['profile_link'], target: '_blank' %>
+      </p>
+    </header>
+    <div class="card-content">
+      <div class="content">
+        <p>
+          <small><time datetime=""><%= tweet['created_at'] %></time></small><br>
+          <%= tweet['text'] %>
+        </p>
+      </div>
+    </div>
+    <footer class="card-footer">
+      <%= link_to tweet['link'], class: 'card-footer-item', title: 'Tweet', target: '_blank' do %>
+        <span class="icon has-text-info">
+          <%= icon('fab', 'twitter') %>&nbsp;Tweet
+        </span>
+      <% end %>
+      <a href="#" class="card-footer-item" title="Favorite">
+        <span class="icon has-text-danger">
+          <%= icon('fas', 'heart') %>&nbsp;<%= tweet['favorite_count'] %>
+        </span>
+      </a>
+      <a href="#" class="card-footer-item" title="Retweet">
+        <span class="icon has-text-info">
+          <%= icon('fas', 'retweet') %>&nbsp;<%= tweet['retweet_count'] %>
+        </span>
+      </a>
+      <a href="#" class="card-footer-item" title="Followers">
+        <span class="icon has-text-primary">
+          <%= icon('fas', 'user-friends') %>&nbsp;<%= tweet['followers_count'] %>
+        </span>
+      </a>
+    </footer>
+  </div>
+
+<% end %>

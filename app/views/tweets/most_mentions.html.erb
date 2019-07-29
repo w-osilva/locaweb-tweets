@@ -1,0 +1,1 @@
+<%= render 'tweets', tweets: @tweets.map{|tweet| extract_tweet(tweet, format: 'most_mentions')} %>
