@@ -207,8 +207,15 @@ Para rodar a aplicação pode baixar e rodar local, ou então rodar em um contai
 
 ## Local
 
-1. Faça o clone do projeto e em seguida baixe as depencias com o _bundler_: ```bundle install```;
-2. Rode o servidor _puma_: ```rails server```
+1. Faça o clone do projeto e em seguida baixe as depencias com o _bundler_: 
+   ```bash
+   $ bundle install
+   ```
+
+2. Rode o servidor _puma_: 
+   ```bash
+   rails server
+   ```
 
 ## Container
 
