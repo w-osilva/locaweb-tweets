@@ -169,3 +169,90 @@ Elixir e Java, por exemplo.
   problema usar lib para os testes)
 + Construir uma interface que leia o JSON e mostre uma versão
   apresentável para o usuário final
+ 
+---
+
+# Change log
+### 1.0.0-alpha
+
+- [x] Setup do projeto e banco de dados
+- [x] Serviço para consumo da API do Twitter
+- [x] Endpoint para o recurso most_mentions
+- [x] Endpoint para o recurso most_relevants
+- [x] Interface para apresentação do conteúdo
+- [x] Deploy em Docker
+
+---
+
+# Sobre
+
+- No backend desenvolvi o serviço **Twitter::Api** que é responsável por encapsular a requisição para a Api do Twitter.
+- Também criei o serviço **Twitter::Tweets**, que possui a 'inteligência' para obter os tweets, classificar e filtrar conforme as regras de negócio. 
+- No controller usei o _hook_ 'before_action' para checar e definir o formato em que deverá ser entregue a resposta da requisição (:json, :html). 
+- No layout utilizei o _bulma css_ para estilizar os elementos e _fontawesome icons_. 
+- No quesito testes, eu optei por utilizar apenas testes unitários (_rspec_), onde o foco é garantir que as regras de negócio estejam corretas.
+- Também utilizei o _vcr_ para criar 'fixtures' e evitar requests repetitivos durante a execução dos testes. 
+- Para deploy, usei o _docker_ e realização de manipulação através da interface do **docker-compose** e **docker services**.
+
+---
+
+# Deploy
+###### Certifique-se que seu sistema operacional possui os requisitos para executar este app.
+
+* Docker >= '18.09.2'
+* Ruby >= '2.6.3'
+* Rails >= '5.2.3'
+
+Para rodar a aplicação pode baixar e rodar local, ou então rodar em um container _docker_.
+
+## Local
+
+1. Faça o clone do projeto e em seguida baixe as depencias com o _bundler_: ```bundle install```;
+2. Rode o servidor _puma_: ```rails server```
+
+## Container
+
+Arquivos usados:
+
+* Dockerfile
+* docker-compose.yml
+* docker-compose.development.yml
+* docker-compose.production.yml
+* control.sh
+* .env
+
+O script **control.sh** é responsável por manipular os comandos do docker e executar a aplicação, sendo:
+
+- ```$ ./control.sh build``` => cria a imagem baseada nos arquivos presentes no momento em que o comando foi executado;
+- ```$ ./control.sh up``` => inicializa o(s) container(s) da stack
+- ```$ ./control.sh stop``` => interrompe o(s) container(s) da stack
+- ```$ ./control.sh restart``` => interrompe e inicializa um serviço de cada vez 
+- ```$ ./control.sh log``` => exibe o 'output' da execução do(s) container(s) da stack
+- ```$ ./control.sh logs``` => exibe o 'output' da execução do(s) container(s) da stack limitando a quantidade de linhas
+- ```$ ./control.sh bash``` => entra no terminal do container
+
+Arquivo **.env** contém as variáveis utilizadas durante o processo de build e start do container. sendo:
+```
+RELEASE=latest
+ENV=production
+SERVICE=locaweb_tweets
+REPLICAS=2
+UPDATE_DELAY=30s
+```
+- ```RELEASE``` => (opcional) release que será aplicada na versão da imagem
+- ```ENV``` => tipo de ambiente que vai rodar (development || production)
+- ```SERVICE``` => o nome do serviço
+- ```REPLICAS```=> (opcional) usado somente quando o ENV=production, define a quantidade de instancias que deverá executar
+- ```UPDATE_DELAY``` => (opcional) usado somente quando REPLICAS>1, define o tempo de espera entre a inicialização de cada instancia
+
+##### Execução
+
+1. Construir a imagem:
+   ```bash
+   $ ./control.sh build
+   ```
+
+2. Iniciar container:
+   ```bash
+   $ ./control.sh up
+   ```
